@@ -1,59 +1,149 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# E-Commerce Application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A RESTful API e-commerce application built with **Laravel 12** and **Vite**.
 
-## About Laravel
+## 🎯 Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This project provides a complete backend API for managing users, products, orders, and shopping carts. Designed for web frontends, mobile apps, and API consumers.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠 Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   **PHP** ^8.2 | **Laravel** ^12.0 | **MySQL** | **Node.js** | **Vite** ^7.0 | **Tailwind CSS** | **PHPUnit**
 
-## Learning Laravel
+## 📦 Prerequisites
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+-   PHP >= 8.2 with `pdo`, `pdo_mysql`, `mbstring`, `json`, `curl`, `tokenizer`, `xml`
+-   Composer >= 2.0
+-   Node.js >= 18.x
+-   MySQL or MariaDB
+-   Git
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Quick Start
 
-## Laravel Sponsors
+### 1. Clone & Install
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+git clone <repository-url>
+cd ecommerce_application
+composer install
+npm install
+```
 
-### Premium Partners
+### 2. Environment Setup
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
 
-## Contributing
+### 3. Database Configuration
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Edit `.env` and set database credentials:
 
-## Code of Conduct
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_DATABASE=ecommerce_app
+DB_USERNAME=root
+DB_PASSWORD=your_password
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Run Migrations & Seed
 
-## Security Vulnerabilities
+```bash
+php artisan migrate
+php artisan db:seed
+npm run build
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 5. Start Development
 
-## License
+```bash
+composer run dev
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Starts: Laravel server (http://localhost:8000), Queue listener, Logs, and Vite
+
+**Or individually:**
+
+```bash
+php artisan serve              # Terminal 1
+npm run dev                    # Terminal 2
+php artisan queue:listen       # Terminal 3
+php artisan pail               # Terminal 4
+```
+
+## 📁 Project Structure
+
+```
+app/Http/Controllers/          # API controllers
+app/Models/                    # Eloquent models
+config/                        # Configuration files
+database/migrations/           # Database migrations
+database/seeders/              # Database seeders
+public/                        # Entry point
+resources/js|css|views/        # Frontend assets
+routes/api.php                 # API routes
+storage/logs/                  # Application logs
+tests/                         # Unit & feature tests
+```
+
+## 🧪 Testing
+
+```bash
+php artisan test                           # Run all tests
+php artisan test --coverage                # With coverage
+php artisan test tests/Feature/Example.php # Specific test
+```
+
+## 🔧 Useful Commands
+
+```bash
+php artisan make:controller ProductController  # Create controller
+php artisan make:model Product -m              # Create model with migration
+php artisan make:migration create_table_name   # Create migration
+php artisan tinker                             # Interactive PHP shell
+./vendor/bin/pint                              # Format code
+```
+
+## ⚠️ Troubleshooting
+
+| Issue                     | Solution                          |
+| ------------------------- | --------------------------------- |
+| "Class not found"         | `composer dump-autoload`          |
+| "No application key set"  | `php artisan key:generate`        |
+| "Table doesn't exist"     | `php artisan migrate`             |
+| Database connection error | Check `.env` database credentials |
+| Port 8000 in use          | `php artisan serve --port=8001`   |
+
+## 🔐 Security
+
+-   Never commit `.env` file
+-   Use token-based authentication for APIs
+-   Always use `Hash::make()` for passwords
+-   Use Eloquent ORM to prevent SQL injection
+
+## 🤝 Contributing
+
+1. Create feature branch: `git checkout -b feature/name`
+2. Commit changes: `git commit -m 'Add feature'`
+3. Push: `git push origin feature/name`
+4. Open Pull Request
+
+Follow PSR-12 coding standards and write tests for new features.
+
+## 📚 API Documentation
+
+_API Endpoints will be documented separately._
+
+Base URL: `http://localhost:8000/api`
+
+## 📄 License
+
+MIT License - see LICENSE file for details.
+
+## 🎓 Resources
+
+-   [Laravel Docs](https://laravel.com/docs)
+-   [Vite Guide](https://vitejs.dev/guide/)
+-   [RESTful API Design](https://restfulapi.net/)
