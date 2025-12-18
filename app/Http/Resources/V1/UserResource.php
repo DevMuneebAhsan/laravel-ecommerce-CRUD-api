@@ -26,6 +26,9 @@ class UserResource extends JsonResource
                     'createdAt' => $this->created_at,
                 ]),
             ],
+            'includes' => [
+                ProductResource::collection($this->whenLoaded('products')),
+            ]
         ];
     }
 }

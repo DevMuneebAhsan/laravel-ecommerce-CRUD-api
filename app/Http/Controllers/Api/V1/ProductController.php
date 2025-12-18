@@ -2,19 +2,21 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\StoreProductRequest;
 use App\Http\Requests\Api\V1\UpdateProductRequest;
 use App\Http\Resources\V1\ProductResource;
 use App\Models\Product;
 
-class ProductController extends Controller
+class ProductController extends ApiController
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        if (request()->query('include') === 'author') {
+            return ProductResource::collection(Product::with('users')->Paginate());
+        }
         return ProductResource::collection(Product::Paginate());
     }
 
@@ -31,6 +33,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        if (request()->query('include') === 'author') {
+            return new ProductResource($product->load('users'));
+        }
         return new ProductResource($product);
     }
 

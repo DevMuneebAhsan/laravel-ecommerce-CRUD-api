@@ -38,7 +38,7 @@ class ProductResource extends JsonResource
                 ]
             ],
             'includes' => [
-                new UserResource($this->user)
+                new UserResource($this->whenLoaded('users')),
             ],
             'links' => [
                 'self' => route('products.show', ['product' => $this->id]),
