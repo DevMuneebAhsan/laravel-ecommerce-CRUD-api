@@ -14,7 +14,7 @@ class UsersController extends ApiController
      */
     public function index()
     {
-        if (request()->include('products')) {
+        if ($this->include('products')) {
             return UserResource::collection(User::with('products')->Paginate());
         }
         return UserResource::collection(User::Paginate());
@@ -32,7 +32,7 @@ class UsersController extends ApiController
      */
     public function show(User $user)
     {
-        if (request()->include('products')) {
+        if ($this->include('products')) {
             return new UserResource($user->load('products'));
         }
         return new UserResource($user);

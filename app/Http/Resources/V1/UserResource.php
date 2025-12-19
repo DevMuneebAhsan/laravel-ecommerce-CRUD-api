@@ -26,9 +26,10 @@ class UserResource extends JsonResource
                     'createdAt' => $this->created_at,
                 ]),
             ],
-            'includes' => [
-                ProductResource::collection($this->whenLoaded('products')),
-            ]
+            'links' => [
+                'self' => route('users.show', ['user', $this->id]),
+            ],
+            'includes' => ProductResource::collection($this->whenLoaded('products')),
         ];
     }
 }

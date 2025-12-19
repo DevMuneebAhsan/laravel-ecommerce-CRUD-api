@@ -33,13 +33,11 @@ class ProductResource extends JsonResource
                         'id' => $this->user_id,
                     ],
                     'links' => [
-                        'self' => 'todo'
-                    ]
+                        'self' => route('users.show', ['user' => $this->user_id]),
+                    ],
                 ]
             ],
-            'includes' => [
-                new UserResource($this->whenLoaded('users')),
-            ],
+            'includes' => new UserResource($this->whenLoaded('user')),
             'links' => [
                 'self' => route('products.show', ['product' => $this->id]),
             ],

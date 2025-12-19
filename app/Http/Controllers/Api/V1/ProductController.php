@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+
+use App\Http\Filters\V1\ProductFilter;
 use App\Http\Requests\Api\V1\StoreProductRequest;
 use App\Http\Requests\Api\V1\UpdateProductRequest;
 use App\Http\Resources\V1\ProductResource;
@@ -12,12 +14,9 @@ class ProductController extends ApiController
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ProductFilter $filters)
     {
-        if (request()->query('include') === 'author') {
-            return ProductResource::collection(Product::with('users')->Paginate());
-        }
-        return ProductResource::collection(Product::Paginate());
+        return ProductResource::collection(Product::filter($filters)->Paginate());
     }
 
     /**
@@ -33,8 +32,8 @@ class ProductController extends ApiController
      */
     public function show(Product $product)
     {
-        if (request()->query('include') === 'author') {
-            return new ProductResource($product->load('users'));
+        if ($this->include('user')) {
+            return new ProductResource($product->load('user'));
         }
         return new ProductResource($product);
     }

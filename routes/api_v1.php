@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\ProductController;
+use App\Http\Controllers\Api\V1\UserProductsController;
 use App\Http\Controllers\Api\V1\UsersController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::middleware('auth:sanctum')->apiResource('products', ProductController::class);
 Route::middleware('auth:sanctum')->apiResource('users', UsersController::class);
+Route::middleware('auth:sanctum')->apiResource('users.products', UserProductsController::class);
 
 
 
