@@ -4,7 +4,7 @@ namespace App\Http\Requests\Api\V1;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreProductRequest extends BaseProductRequest
+class ReplaceProductRequest extends BaseProductRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,7 +28,7 @@ class StoreProductRequest extends BaseProductRequest
             'data.attributes.price' => 'required|numeric|decimal:0,2|min:0',
             'data.attributes.image' => 'nullable|string|max:255',
         ];
-        if ($this->routeIs('products.store')) {
+        if ($this->routeIs('products.update')) {
             $rules['data.relationships.author.data.id'] = 'required|integer';
         }
         return $rules;

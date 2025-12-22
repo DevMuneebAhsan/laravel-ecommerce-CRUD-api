@@ -2,16 +2,15 @@
 
 namespace App\Http\Requests\Api\V1;
 
-use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProductRequest extends FormRequest
+class UpdateProductRequest extends BaseProductRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +20,14 @@ class UpdateProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $rules = [
+            'data.attributes.title' => 'sometimes|string|max:255',
+            'data.attributes.description' => 'sometimes|string',
+            'data.attributes.category' => 'sometimes|string|max:255',
+            'data.attributes.price' => 'sometimes|numeric|decimal:0,2|min:0',
+            'data.attributes.image' => 'nullable|string|max:255',
+            'data.relationships.author.data.id' => 'sometimes|integer',
         ];
+        return $rules;
     }
 }

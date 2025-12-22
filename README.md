@@ -4,7 +4,7 @@ A RESTful API e-commerce application built with **Laravel 12** and **Vite**.
 
 ## 🎯 Overview
 
-This project provides a complete backend API for managing users, products, orders, and shopping carts. Designed for web frontends, mobile apps, and API consumers.
+This project provides a complete API for managing users, products. Designed for web frontends, mobile apps, and API consumers.
 
 ## 🛠 Tech Stack
 
@@ -76,14 +76,15 @@ php artisan pail               # Terminal 4
 ## 📁 Project Structure
 
 ```
-app/Http/Controllers/          # API controllers
+app/Http/Controllers/Api       # API controllers
 app/Models/                    # Eloquent models
 config/                        # Configuration files
 database/migrations/           # Database migrations
 database/seeders/              # Database seeders
 public/                        # Entry point
 resources/js|css|views/        # Frontend assets
-routes/api.php                 # API routes
+routes/api_v1.php              # API route
+routes/api.php                 # API route
 storage/logs/                  # Application logs
 tests/                         # Unit & feature tests
 ```
@@ -134,9 +135,39 @@ Follow PSR-12 coding standards and write tests for new features.
 
 ## 📚 API Documentation
 
-_API Endpoints will be documented separately._
+### Products
 
-Base URL: `http://localhost:8000/api`
+| Method | Endpoint              | Description            |
+| ------ | --------------------- | ---------------------- |
+| GET    | `/products`           | List all products      |
+| POST   | `/products`           | Create a product       |
+| GET    | `/products/{product}` | Get product details    |
+| PUT    | `/products/{product}` | Replace entire product |
+| PATCH  | `/products/{product}` | Partial update product |
+| DELETE | `/products/{product}` | Delete product         |
+
+### Users
+
+| Method | Endpoint        | Description      |
+| ------ | --------------- | ---------------- |
+| GET    | `/users`        | List all users   |
+| GET    | `/users/{user}` | Get user details |
+
+### User Products
+
+| Method | Endpoint                           | Description                   |
+| ------ | ---------------------------------- | ----------------------------- |
+| GET    | `/users/{user}/products`           | List user's products          |
+| POST   | `/users/{user}/products`           | Add product to user           |
+| GET    | `/users/{user}/products/{product}` | Get user's product            |
+| PUT    | `/users/{user}/products/{product}` | Replace user's product        |
+| PATCH  | `/users/{user}/products/{product}` | Partial update user's product |
+| DELETE | `/users/{user}/products/{product}` | Remove product from user      |
+
+Base URL: `http://localhost:8000/api/v1`
+User Login URL: `http://localhost:8000/api/login`
+User Registration URL: `http://localhost:8000/api/register`
+User Logout URL: `http://localhost:8000/api/logout`
 
 ## 📄 License
 

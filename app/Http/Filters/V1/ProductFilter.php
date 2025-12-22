@@ -5,7 +5,7 @@ namespace App\Http\Filters\V1;
 class ProductFilter extends QueryFilter
 {
     protected $sortable = [
-        'name',
+        'title',
         'category',
         'price',
         'createdAt' => 'created_at',
@@ -19,10 +19,10 @@ class ProductFilter extends QueryFilter
     {
         return $this->builder->where('category', $value);
     }
-    public function name($value)
+    public function title($value)
     {
         $likeStr = str_replace('*', '%', $value);
-        return $this->builder->where('name', 'like', $likeStr);
+        return $this->builder->where('title', 'like', $likeStr);
     }
     public function price($value)
     {

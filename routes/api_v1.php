@@ -11,12 +11,19 @@ use Illuminate\Support\Facades\Route;
 //         'hello from api v1'
 //     ]);
 // });
-Route::middleware('auth:sanctum')->apiResource('products', ProductController::class);
-Route::middleware('auth:sanctum')->apiResource('users', UsersController::class);
-Route::middleware('auth:sanctum')->apiResource('users.products', UserProductsController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('products', ProductController::class)->except('update');
+    Route::put('products/{product}', [ProductController::class, 'replace']);
+    Route::patch('products/{product}', [ProductController::class, 'update']);
 
 
+    Route::apiResource('users', UsersController::class);
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+    Route::apiResource('users.products', UserProductsController::class)->except('update');
+    Route::put('users/{user}/products/{product}', [UserProductsController::class, 'replace']);
+    Route::patch('users/{user}/products/{product}', [UserProductsController::class, 'update']);
+
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+});

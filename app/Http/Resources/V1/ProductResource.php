@@ -18,8 +18,8 @@ class ProductResource extends JsonResource
             'type' => 'product',
             'id' => $this->id,
             'attributes' => [
-                'name' => $this->name,
-                'description' => $this->when($request->routeIs('products.show'), $this->description),
+                'title' => $this->title,
+                'description' => $this->when(!$request->routeIs(['products.index', 'users.products.index']), $this->description),
                 'price' => $this->price,
                 'category' => $this->category,
                 'image' => $this->image,
