@@ -20,7 +20,12 @@ class DatabaseSeeder extends Seeder
             ->count(10)
             ->hasProducts(10)
             ->create();
-
+        // User::factory()->create([
+        //     'name' => 'Muneeb Ahsan',
+        //     'email' => 'manager@manager.com',
+        //     'password' => bcrypt('password'),
+        //     'is_manager' => true,
+        // ]);
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

@@ -7,6 +7,7 @@ use App\Http\Requests\Api\LoginUserRequest;
 use App\Http\Requests\Api\RegisterUserRequest;
 use App\Http\Resources\V1\UserResource;
 use App\Models\User;
+use App\Permissions\V1\Abilities;
 use App\Traits\ApiResponses;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
