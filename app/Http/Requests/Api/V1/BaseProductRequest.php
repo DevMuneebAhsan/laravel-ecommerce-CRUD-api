@@ -11,17 +11,18 @@ class BaseProductRequest extends FormRequest
         $attributeMap = [
             'data.attributes.title' => 'title',
             'data.attributes.description' => 'description',
-            'data.attributes.category' => 'category',
             'data.attributes.price' => 'price',
             'data.attributes.image' => 'image',
             'data.attributes.createdAt' => 'created_at',
             'data.attributes.updatedAt' => 'updated_at',
+            'data.relationships.category.data.id' => 'category_id',
             'data.relationships.author.data.id' => 'user_id',
         ];
         $attributesToUpdate = [];
         foreach ($attributeMap as $key => $attribute) {
-            if ($this->has($key)) {
-                $attributesToUpdate[$attribute] = $this->input($key);
+            $value = $this->input($key);
+            if (!is_null($value)) {
+                $attributesToUpdate[$attribute] = $value;
             }
         }
         return $attributesToUpdate;

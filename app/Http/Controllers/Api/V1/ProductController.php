@@ -46,8 +46,21 @@ class ProductController extends ApiController
     {
         try {
             $product = Product::findOrFail($product_id);
+            // if ($this->include('user')) {
+            //     return new ProductResource($product->load('user'));
+            // }
+            $relations = [];
+
             if ($this->include('user')) {
-                return new ProductResource($product->load('user'));
+                $relations[] = 'user';
+            }
+
+            if ($this->include('category')) {
+                $relations[] = 'category';
+            }
+
+            if (!empty($relations)) {
+                $product->load($relations);
             }
             return new ProductResource($product);
         } catch (ModelNotFoundException $exception) {

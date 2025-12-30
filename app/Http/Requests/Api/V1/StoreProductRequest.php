@@ -24,9 +24,9 @@ class StoreProductRequest extends BaseProductRequest
         $rules = [
             'data.attributes.title' => 'required|string|max:255',
             'data.attributes.description' => 'required|string',
-            'data.attributes.category' => 'required|string|max:255',
             'data.attributes.price' => 'required|numeric|decimal:0,2|min:0',
             'data.attributes.image' => 'nullable|string|max:255',
+            'data.relationships.category.data.id' => ['required', 'integer', 'exists:categories,id'],
         ];
         if ($this->routeIs('products.store')) {
             $rules['data.relationships.author.data.id'] = 'required|integer';

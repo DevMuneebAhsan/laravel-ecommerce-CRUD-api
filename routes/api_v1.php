@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\CategoryController;
 use App\Http\Controllers\Api\V1\ProductController;
 use App\Http\Controllers\Api\V1\UserProductsController;
 use App\Http\Controllers\Api\V1\UsersController;
@@ -16,6 +17,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('products/{product}', [ProductController::class, 'replace']);
     Route::patch('products/{product}', [ProductController::class, 'update']);
 
+    Route::apiResource('categories', CategoryController::class)->except('update');
+    Route::put('categories/{category}', [CategoryController::class, 'replace']);
+    Route::patch('categories/{category}', [CategoryController::class, 'update']);
 
     Route::apiResource('users', UsersController::class);
 

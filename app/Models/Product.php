@@ -12,13 +12,17 @@ class Product extends Model
 {
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
-    protected $fillable = ['title', 'description', 'category', 'price', 'image', 'user_id'];
+    protected $fillable = ['title', 'description', 'category_id', 'price', 'image', 'user_id'];
     protected $casts = [
         'price' => 'decimal:2',
     ];
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
     }
     public function scopeFilter(Builder $builder, QueryFilter $filters)
     {

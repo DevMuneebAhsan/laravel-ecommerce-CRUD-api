@@ -52,7 +52,7 @@ class UserProductsController extends ApiController
                 'user_id' => $user_id,
                 'title' => $request->input('data.attributes.title'),
                 'description' => $request->input('data.attributes.description'),
-                'category' => $request->input('data.attributes.category'),
+                'category_id' => $request->input('data.attributes.category_id'),
                 'price' => $request->input('data.attributes.price'),
                 'image' => $request->input('data.attributes.image'),
             ];

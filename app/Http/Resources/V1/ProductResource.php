@@ -21,8 +21,8 @@ class ProductResource extends JsonResource
                 'title' => $this->title,
                 'description' => $this->when(!$request->routeIs(['products.index', 'users.products.index']), $this->description),
                 'price' => $this->price,
-                'category' => $this->category,
                 'image' => $this->image,
+                'category_id' => $this->category_id,
                 'createdAt' => $this->created_at,
                 'updatedAt' => $this->updated_at
             ],
@@ -35,9 +35,21 @@ class ProductResource extends JsonResource
                     'links' => [
                         'self' => route('users.show', ['user' => $this->user_id]),
                     ],
-                ]
+                ],
+                'category' => [
+                    'data' => [
+                        'type' => 'category',
+                        'id' => (string) $this->category_id,
+                    ],
+                    'links' => [
+                        'self' => route('categories.show', ['category' => $this->category_id]),
+                    ],
+                ],
             ],
-            'includes' => new UserResource($this->whenLoaded('user')),
+            'includes' => [
+                'author' => new UserResource($this->whenLoaded('user')),
+                'category' => new CategoryResource($this->whenLoaded('category')),
+            ],
             'links' => [
                 'self' => route('products.show', ['product' => $this->id]),
             ],

@@ -23,9 +23,9 @@ class UpdateProductRequest extends BaseProductRequest
         $rules = [
             'data.attributes.title' => 'sometimes|string|max:255',
             'data.attributes.description' => 'sometimes|string',
-            'data.attributes.category' => 'sometimes|string|max:255',
             'data.attributes.price' => 'sometimes|numeric|decimal:0,2|min:0',
             'data.attributes.image' => 'nullable|string|max:255',
+            'data.relationships.category.data.id' => ['sometimes', 'integer', 'exists:categories,id',],
             'data.relationships.author.data.id' => 'sometimes|integer',
         ];
         return $rules;
