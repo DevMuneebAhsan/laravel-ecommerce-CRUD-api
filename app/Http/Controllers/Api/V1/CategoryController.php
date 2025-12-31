@@ -9,10 +9,13 @@ use App\Http\Requests\Api\V1\UpdateCategoryRequest;
 use App\Http\Requests\Api\V1\ReplaceCategoryRequest;
 use App\Http\Resources\V1\CategoryResource;
 use App\Models\Category;
+use App\Policies\V1\CategoryPolicy;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class CategoryController extends ApiController
 {
+    protected $policyClass = CategoryPolicy::class;
     /**
      * Display a listing of the resource.
      */
@@ -47,11 +50,15 @@ class CategoryController extends ApiController
      */
     public function store(StoreCategoryRequest $request)
     {
-        $category = Category::create(
-            $request->mappedAttributes()
-        );
-
-        return new CategoryResource($category);
+        try {
+            $this->isAble('store', Category::class);
+            $category = Category::create(
+                $request->mappedAttributes()
+            );
+            return new CategoryResource($category);
+        } catch (AuthorizationException $exception) {
+            return $this->error('You are not authorised for this action', 403);
+        }
     }
 
     /**
@@ -93,7 +100,7 @@ class CategoryController extends ApiController
     {
         try {
             $category = Category::findOrFail($category_id);
-
+            $this->isAble('update', $category);
             $category->update(
                 $request->mappedAttributes()
             );
@@ -101,6 +108,8 @@ class CategoryController extends ApiController
             return new CategoryResource($category);
         } catch (ModelNotFoundException $exception) {
             return $this->error('Category cannot be found', 404);
+        } catch (AuthorizationException $exception) {
+            return $this->error('You are not authorised for this action', 403);
         }
     }
 
@@ -111,7 +120,7 @@ class CategoryController extends ApiController
     {
         try {
             $category = Category::findOrFail($category_id);
-
+            $this->isAble('replace', $category);
             $category->update(
                 $request->mappedAttributes()
             );
@@ -119,6 +128,8 @@ class CategoryController extends ApiController
             return new CategoryResource($category);
         } catch (ModelNotFoundException $exception) {
             return $this->error('Category cannot be found', 404);
+        } catch (AuthorizationException $exception) {
+            return $this->error('You are not authorised for this action', 403);
         }
     }
 
@@ -129,12 +140,14 @@ class CategoryController extends ApiController
     {
         try {
             $category = Category::findOrFail($category_id);
-
+            $this->isAble('delete', $category);
             $category->delete();
 
             return $this->ok('Category successfully deleted');
         } catch (ModelNotFoundException $exception) {
             return $this->error('Category cannot be found', 404);
+        } catch (AuthorizationException $exception) {
+            return $this->error('You are not authorised for this action', 403);
         }
     }
 }
